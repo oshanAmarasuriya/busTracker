@@ -7,36 +7,27 @@ import java.time.LocalDateTime;
 public class BusSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String busNumber;
-    private String route;
+    private Long scheduleId;
+    @OneToOne
+    @JoinColumn(name="routeId",unique = true)
+    private Route route;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
+    private Integer votes;
 
-    // getters and setters
-
-    public Long getId() {
-        return id;
+    public Long getScheduleId() {
+        return scheduleId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setScheduleId(Long scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public String getBusNumber() {
-        return busNumber;
-    }
-
-    public void setBusNumber(String busNumber) {
-        this.busNumber = busNumber;
-    }
-
-    public String getRoute() {
+    public Route getRoute() {
         return route;
     }
 
-    public void setRoute(String route) {
+    public void setRoute(Route route) {
         this.route = route;
     }
 
@@ -54,5 +45,13 @@ public class BusSchedule {
 
     public void setArrivalTime(LocalDateTime arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public Integer getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Integer votes) {
+        this.votes = votes;
     }
 }
