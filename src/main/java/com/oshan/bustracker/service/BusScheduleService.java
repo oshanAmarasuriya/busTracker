@@ -4,6 +4,7 @@ import com.oshan.bustracker.controller.BusScheduleDto;
 import com.oshan.bustracker.model.BusSchedule;
 import com.oshan.bustracker.model.Route;
 import com.oshan.bustracker.repository.BusScheduleRepository;
+import com.oshan.bustracker.repository.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,18 @@ import java.util.List;
 public class BusScheduleService {
 
     private BusScheduleRepository schRepo;
+    private RouteRepository routeRepo;
     @Autowired
-    public BusScheduleService(BusScheduleRepository schRepo){
+    public BusScheduleService(BusScheduleRepository schRepo, RouteRepository routeRepo){
         this.schRepo=schRepo;
+        this.routeRepo=routeRepo;
     }
 
     public ResponseEntity<String> saveSchedule(BusScheduleDto busScheduleDto){
         BusSchedule busSchedule = new BusSchedule();
-        Route route = new Route();
-        route.setRouteId(2L);
-        busSchedule.setRoute(route);
+//        Route route = new Route(); //temp
+//        route.setRouteId(2L);
+        busSchedule.setRoute(routeRepo.getReferenceById(busScheduleDto.getRouteId()));
         busSchedule.setArrivalTime(busScheduleDto.getArrivalTime());
         busSchedule.setDepartureTime(busScheduleDto.getDepartureTime());
         busSchedule.setVotes(busScheduleDto.getVotes());

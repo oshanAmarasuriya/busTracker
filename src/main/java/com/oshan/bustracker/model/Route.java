@@ -9,8 +9,7 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long routeId;
 
-    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Bus> buses;
+
 
     private String origin;
     private String destination;
@@ -23,13 +22,6 @@ public class Route {
         this.routeId = routeId;
     }
 
-    public List<Bus> getBuses() {
-        return buses;
-    }
-
-    public void setBuses(List<Bus> buses) {
-        this.buses = buses;
-    }
 
     public String getOrigin() {
         return origin;
