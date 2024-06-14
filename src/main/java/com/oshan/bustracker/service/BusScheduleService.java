@@ -25,12 +25,10 @@ public class BusScheduleService {
 
     public ResponseEntity<String> saveSchedule(BusScheduleDto busScheduleDto){
         BusSchedule busSchedule = new BusSchedule();
-//        Route route = new Route(); //temp
-//        route.setRouteId(2L);
         busSchedule.setRoute(routeRepo.getReferenceById(busScheduleDto.getRouteId()));
         busSchedule.setArrivalTime(busScheduleDto.getArrivalTime());
         busSchedule.setDepartureTime(busScheduleDto.getDepartureTime());
-        busSchedule.setVotes(busScheduleDto.getVotes());
+        busSchedule.setVotes(0);
 
         BusSchedule savedSchedule = schRepo.save(busSchedule);
         if(savedSchedule != null){
@@ -41,6 +39,12 @@ public class BusScheduleService {
 
     public ResponseEntity<List<BusSchedule>> getSchedules(){
         return new ResponseEntity<>(schRepo.findAll(),HttpStatus.OK);
+    }
+
+    public void addVote(Long scheduleId) {
+        BusSchedule schedule = schRepo.findById(scheduleId).orElseThrow(() -> new RuntimeException("Schedule not found"));
+        schedule.setVotes(schedule.getVotes() + 1);
+        schRepo.save(schedule);
     }
 
 
