@@ -1,7 +1,10 @@
 package com.oshan.bustracker.model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class BusSchedule {
@@ -11,8 +14,16 @@ public class BusSchedule {
     @OneToOne
     @JoinColumn(name="routeId",unique = true)
     private Route route;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @Column(columnDefinition = "DATETIME(0)")
+    private Date departureTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @Column(columnDefinition = "DATETIME(0)")
+    private Date arrivalTime;
     private Integer votes;
 
     public Long getScheduleId() {
@@ -31,19 +42,19 @@ public class BusSchedule {
         this.route = route;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(Date departureTime) {
         this.departureTime = departureTime;
     }
 
-    public LocalDateTime getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 

@@ -1,22 +1,23 @@
 package com.oshan.bustracker.controller;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class BusScheduleDto {
     private Long routeId;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private Date departureTime;
+    private Date arrivalTime;
     private Integer votes;
 
     public Long getRouteId() {
         return routeId;
     }
 
-    public LocalDateTime getDepartureTime() {
+    public Date getDepartureTime() {
         return departureTime;
     }
 
-    public LocalDateTime getArrivalTime() {
+    public Date getArrivalTime() {
         return arrivalTime;
     }
 

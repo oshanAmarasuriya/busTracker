@@ -1,6 +1,5 @@
 package com.oshan.bustracker.controller;
 
-import com.oshan.bustracker.model.BusSchedule;
 import com.oshan.bustracker.model.Route;
 import com.oshan.bustracker.service.RouteInfoUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
