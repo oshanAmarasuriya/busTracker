@@ -8,6 +8,8 @@ public class BusScheduleDto {
     private Date departureTime;
     private Date arrivalTime;
     private Integer votes;
+    private Double latitude;
+    private Double longitude;
 
     public Long getRouteId() {
         return routeId;
@@ -23,5 +25,13 @@ public class BusScheduleDto {
 
     public Integer getVotes() {
         return votes;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
     }
 }

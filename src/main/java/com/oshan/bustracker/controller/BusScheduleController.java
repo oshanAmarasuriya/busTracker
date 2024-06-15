@@ -34,12 +34,13 @@ public class BusScheduleController {
     }
 
     @PatchMapping("/vote/{id}")
-    public ResponseEntity<String> addVote(@PathVariable Long id, @CookieValue(value = "votedSchedules", defaultValue = "") String votedSchedules, HttpServletResponse response) {
+    public ResponseEntity<String> addVote(@PathVariable Long id, @CookieValue(value = "votedSchedules", defaultValue = "") String votedSchedules,
+                                          @RequestBody VoteDto voteDto, HttpServletResponse response) {
         if (votedSchedules.contains("[" + id + "]")) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User has already voted");
+            return new ResponseEntity<>("{\"message\": \"" + "User has already voted!" + "\"}", HttpStatus.FORBIDDEN);
         }
 
-        busScheduleService.addVote(id);
+        busScheduleService.addVote(id,voteDto);
 
         // Update the cookie with the new vote
         votedSchedules += "[" + id + "]";
@@ -49,7 +50,7 @@ public class BusScheduleController {
         cookie.setMaxAge(60 * 60 * 2); // 2 hours
         response.addCookie(cookie);
 
-        return ResponseEntity.ok("Vote added successfully");
+        return new ResponseEntity<>("{\"message\": \"" + "success!" + "\"}", HttpStatus.OK);
     }
 
 }

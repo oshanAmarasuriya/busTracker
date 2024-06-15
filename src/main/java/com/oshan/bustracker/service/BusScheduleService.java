@@ -1,6 +1,7 @@
 package com.oshan.bustracker.service;
 
 import com.oshan.bustracker.controller.BusScheduleDto;
+import com.oshan.bustracker.controller.VoteDto;
 import com.oshan.bustracker.model.BusSchedule;
 import com.oshan.bustracker.model.Route;
 import com.oshan.bustracker.repository.BusScheduleRepository;
@@ -29,6 +30,10 @@ public class BusScheduleService {
         busSchedule.setArrivalTime(busScheduleDto.getArrivalTime());
         busSchedule.setDepartureTime(busScheduleDto.getDepartureTime());
         busSchedule.setVotes(0);
+//        busSchedule.setLastKnownLatitude(busScheduleDto.getLatitude());
+//        busSchedule.setLastKnownLongitude(busScheduleDto.getLongitude());
+        busSchedule.setLastKnownLatitude(0.0);
+        busSchedule.setLastKnownLongitude(0.0);
 
         BusSchedule savedSchedule = schRepo.save(busSchedule);
         if(savedSchedule != null){
@@ -41,9 +46,11 @@ public class BusScheduleService {
         return new ResponseEntity<>(schRepo.findAll(),HttpStatus.OK);
     }
 
-    public void addVote(Long scheduleId) {
+    public void addVote(Long scheduleId, VoteDto voteDto) {
         BusSchedule schedule = schRepo.findById(scheduleId).orElseThrow(() -> new RuntimeException("Schedule not found"));
         schedule.setVotes(schedule.getVotes() + 1);
+        schedule.setLastKnownLatitude(voteDto.getLatitude());
+        schedule.setLastKnownLongitude(voteDto.getLongitude());
         schRepo.save(schedule);
     }
 

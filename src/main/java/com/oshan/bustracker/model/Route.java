@@ -10,7 +10,7 @@ public class Route {
     private Long routeId;
 
 
-
+    private Integer routeNumber;
     private String origin;
     private String destination;
 
@@ -22,6 +22,13 @@ public class Route {
         this.routeId = routeId;
     }
 
+    public Integer getRouteNumber() {
+        return routeNumber;
+    }
+
+    public void setRouteNumber(Integer routeNumber) {
+        this.routeNumber = routeNumber;
+    }
 
     public String getOrigin() {
         return origin;
